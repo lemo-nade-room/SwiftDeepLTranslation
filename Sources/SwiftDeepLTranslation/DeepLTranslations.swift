@@ -6,5 +6,10 @@ struct DeepLTranslation: Decodable {
 }
 
 struct DeepLTranslations: Decodable {
+    
     let translations: [DeepLTranslation]
+    
+    mutating func append(_ added: Self) {
+        self =  .init(translations: translations + added.translations)
+    }
 }

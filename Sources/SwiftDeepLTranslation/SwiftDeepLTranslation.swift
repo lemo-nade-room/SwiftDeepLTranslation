@@ -33,8 +33,11 @@ public struct SwiftDeepLTranslation {
         return result.translations[0].text
     }
     
-    public func translate(texts: [String], from: Language? = nil, to: Language) async throws -> [String] {
-        let translations = try await fetch(texts: texts, from: from, to: to)
+    public func translate(texts allTexts: [String], from: Language? = nil, to: Language) async throws -> [String] {
+        var translations: DeepLTranslations = .init(translations: [])
+        for texts in allTexts.texts {
+            translations.append(try await fetch(texts: texts, from: from, to: to))
+        }
         return translations.translations.map { $0.text }
     }
      
