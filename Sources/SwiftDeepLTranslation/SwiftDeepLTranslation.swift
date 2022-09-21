@@ -51,7 +51,7 @@ public struct SwiftDeepLTranslation {
         
         let parameter = DeepLParameter(target_lang: to.rawValue, source_lang: from?.rawValue, texts: texts)
         request.httpBody = parameter.query.data(using: .utf8)
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response): (Data, URLResponse) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw TranslateError(message: "HTTPURLResponse以外が返却された")
         }
